@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="form-wrapper">
+    <h1>Registrar Nueva Empresa</h1>
+
+    <div *ngIf="mensajeError" class="alert alert-error">
+      {{ mensajeError }}
+    </div>
+
+    <div *ngIf="mensajeExito" class="alert alert-success">
+      {{ mensajeExito }}
+    </div>
+
+    <form [formGroup]="formulario" (ngSubmit)="enviar()">
+      <div class="form-group">
+        <label for="nombre">Nombre de la Empresa:</label>
+        <input
+          id="nombre"
+          type="text"
+          formControlName="nombre"
+          placeholder="Ingresa el nombre de la empresa"
+          class="form-control"
+        />
+        <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched" class="error-text">
+          <small *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es requerido.</small>
+          <small *ngIf="formulario.get('nombre')?.hasError('minlength')">Mínimo 3 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nit">NIT:</label>
+        <input
+          id="nit"
+          type="text"
+          formControlName="nit"
+          placeholder="Ingresa el NIT"
+          class="form-control"
+        />
+        <div *ngIf="formulario.get('nit')?.invalid && formulario.get('nit')?.touched" class="error-text">
+          <small *ngIf="formulario.get('nit')?.hasError('required')">El NIT es requerido.</small>
+          <small *ngIf="formulario.get('nit')?.hasError('minlength')">Mínimo 5 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ciudad">Ciudad:</label>
+        <input
+          id="ciudad"
+          type="text"
+          formControlName="ciudad"
+          placeholder="Ingresa la ciudad"
+          class="form-control"
+        />
+        <div *ngIf="formulario.get('ciudad')?.invalid && formulario.get('ciudad')?.touched" class="error-text">
+          <small *ngIf="formulario.get('ciudad')?.hasError('required')">La ciudad es requerida.</small>
+          <small *ngIf="formulario.get('ciudad')?.hasError('minlength')">Mínimo 3 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sector">Sector:</label>
+        <input
+          id="sector"
+          type="text"
+          formControlName="sector"
+          placeholder="Ingresa el sector económico"
+          class="form-control"
+        />
+        <div *ngIf="formulario.get('sector')?.invalid && formulario.get('sector')?.touched" class="error-text">
+          <small *ngIf="formulario.get('sector')?.hasError('required')">El sector es requerido.</small>
+          <small *ngIf="formulario.get('sector')?.hasError('minlength')">Mínimo 3 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="formulario.invalid || enviando" class="btn btn-primary">
+          {{ enviando ? 'Guardando...' : 'Guardar Empresa' }}
+        </button>
+        <button type="button" (click)="limpiar()" class="btn btn-secondary">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="header">
+    <h1>Empresas Registradas</h1>
+    <div class="actions">
+      <button class="btn btn-primary" routerLink="/crear">
+        + Nueva Empresa
+      </button>
+      <button class="btn btn-secondary" (click)="recargar()">
+        Recargar
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="mensajeError" class="alert alert-error">
+    {{ mensajeError }}
+  </div>
+
+  <div *ngIf="cargando" class="loading">
+    <p>Cargando empresas...</p>
+  </div>
+
+  <div *ngIf="!cargando && empresas.length === 0" class="empty-state">
+    <p>No hay empresas registradas.</p>
+    <button class="btn btn-primary" routerLink="/crear">
+      Crear Primera Empresa
+    </button>
+  </div>
+
+  <div *ngIf="!cargando && empresas.length > 0" class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>NIT</th>
+          <th>Ciudad</th>
+          <th>Sector</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empresa of empresas" [class.selected]="empresaSeleccionada === empresa.id">
+          <td>{{ empresa.id }}</td>
+          <td>{{ empresa.nombre }}</td>
+          <td>{{ empresa.nit }}</td>
+          <td>{{ empresa.ciudad }}</td>
+          <td>{{ empresa.sector }}</td>
+          <td class="actions">
+            <button class="btn btn-sm btn-danger" (click)="eliminarEmpresa(empresa.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="total">
+      <strong>Total de empresas: {{ empresas.length }}</strong>
+    </div>
+  </div>
+</div>
